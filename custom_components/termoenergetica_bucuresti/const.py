@@ -13,3 +13,5 @@ PUNCTE_TERMICE = {
     "nord": "Nord",
     "est": "Est"
 }
+
+SCAN_INTERVAL = 30  # minute
