@@ -1,7 +1,7 @@
 {
   "domain": "termoenergetica_bucuresti",
   "name": "Termoenergetica București",
-  "codeowners": ["@numeletau_github"],
+  "codeowners": ["@George"],
   "config_flow": true,
   "dependencies": [],
   "documentation": "https://github.com/GeorgeRPI/termoenergetica_bucuresti",
