@@ -1,12 +1,11 @@
 {
   "domain": "termoenergetica_bucuresti",
   "name": "Termoenergetica București",
-  "codeowners": ["@GeorgeRPI"],
+  "codeowners": ["@your_username"],
   "config_flow": true,
   "dependencies": [],
-  "documentation": "https://github.com/GeorgeRPI/termoenergetica_bucuresti",
+  "documentation": "https://github.com/your_username/termoenergetica_bucuresti",
   "integration_type": "service",
   "iot_class": "cloud_polling",
-  "requirements": ["beautifulsoup4>=4.12.0", "aiohttp>=3.8.0"],
   "version": "1.0.0"
 }
