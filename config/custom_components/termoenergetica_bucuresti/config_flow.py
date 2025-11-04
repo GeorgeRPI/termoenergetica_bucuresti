@@ -11,19 +11,12 @@ class ConfigFlow(config_entries.ConfigFlow, domain="termoenergetica_bucuresti"):
         """Handle user step."""
         if user_input is not None:
             return self.async_create_entry(
-                title="Termoenergetica",
+                title=f"Termoenergetica - {user_input['strada']}",
                 data=user_input
             )
 
         schema = vol.Schema({
             vol.Required("strada"): str,
-            vol.Required("zona", default="centru"): vol.In({
-                "centru": "Centru",
-                "nord": "Nord",
-                "sud": "Sud",
-                "est": "Est", 
-                "vest": "Vest"
-            })
         })
         
         return self.async_show_form(step_id="user", data_schema=schema)
