@@ -2,10 +2,12 @@
 from __future__ import annotations
 import voluptuous as vol
 from homeassistant import config_entries
-from homeassistant.core import callback
-from .const import DOMAIN, CONF_PUNCT_TERMIC, CONF_STRADA, PUNCTE_TERMICE
+from homeassistant.core import HomeAssistant
+import logging
 
-class TermoenergeticaConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
+_LOGGER = logging.getLogger(__name__)
+
+class TermoenergeticaConfigFlow(config_entries.ConfigFlow, domain="termoenergetica_bucuresti"):
     """Handle a config flow for Termoenergetica București."""
     
     VERSION = 1
@@ -15,20 +17,26 @@ class TermoenergeticaConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         errors = {}
 
         if user_input is not None:
-            # Verifică dacă există deja o configurare cu aceeași stradă
+            # Verifică unicitate
             await self.async_set_unique_id(
-                f"{user_input[CONF_PUNCT_TERMIC]}_{user_input[CONF_STRADA].lower()}"
+                f"termo_{user_input['punct_termic']}_{user_input['strada']}".lower()
             )
             self._abort_if_unique_id_configured()
 
             return self.async_create_entry(
-                title=f"Termoenergetica - {user_input[CONF_STRADA]}",
+                title=f"Termoenergetica - {user_input['strada']}",
                 data=user_input
             )
 
         data_schema = vol.Schema({
-            vol.Required(CONF_PUNCT_TERMIC, default="centru"): vol.In(PUNCTE_TERMICE),
-            vol.Required(CONF_STRADA): str,
+            vol.Required("punct_termic", default="centru"): vol.In({
+                "centru": "Centru",
+                "vest": "Vest", 
+                "sud": "Sud",
+                "nord": "Nord",
+                "est": "Est"
+            }),
+            vol.Required("strada"): str,
         })
 
         return self.async_show_form(
